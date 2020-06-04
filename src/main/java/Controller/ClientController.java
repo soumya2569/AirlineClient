@@ -1,6 +1,7 @@
 package Controller;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import Model.FlightDetailsTO;
+import Model.FlightList;
+
 @RestController
 
 @RequestMapping(value = "/")
@@ -20,7 +24,7 @@ public class ClientController {
 	public RestTemplate restTemplate;
 
 	@RequestMapping(value = "/allFlight", method = RequestMethod.GET)
-	  public <T> ResponseEntity<T> getAirLineDetail(){
+	  public FlightList getAirLineDetail(){
 		  
 		  final String uri = "http://localhost:8080/base/getFlight";
 		     
@@ -29,15 +33,16 @@ public class ClientController {
 		    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		    HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 		     
-		    ResponseEntity<T> result = (ResponseEntity<T>) restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
-		     
+		    ResponseEntity<FlightList> result = (ResponseEntity<FlightList>) restTemplate.exchange(uri, HttpMethod.GET, entity, FlightList.class);
 		    
-		    return result;
+		    FlightList   flightList = result.getBody();
+		    
+		    return flightList;
 		     
 	  }
 	
 	@RequestMapping(value = "/getFlightStatus", method = RequestMethod.GET)
-	 public <T> ResponseEntity<T> showFlightStatus(){
+	 public FlightList showFlightStatus(){
 		  
 		  final String uri = "http://localhost:8080/base/getFlightStatus";
 		     
@@ -46,16 +51,19 @@ public class ClientController {
 		    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		    HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 		     
-		    ResponseEntity<T> result = (ResponseEntity<T>) restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
 		     
+		    ResponseEntity<FlightList> result = (ResponseEntity<FlightList>) restTemplate.exchange(uri, HttpMethod.GET, entity, FlightList.class);
 		    
-		    return result;
+		    FlightList   flightList = result.getBody();
+		    
+		    return flightList;
+		    
 		     
 	  }
 	
 	@RequestMapping(value = "/getSeatNo", method = RequestMethod.GET)
 	 
-	 public <T> ResponseEntity<T> showSeatDetail(){
+	 public FlightDetailsTO showSeatDetail(){
 		  
 		  final String uri = "http://localhost:8080/base/getFlight/123";
 		     
@@ -64,10 +72,10 @@ public class ClientController {
 		    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		    HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 		     
-		    ResponseEntity<T> result = (ResponseEntity<T>) restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
+		    ResponseEntity<FlightDetailsTO> result = (ResponseEntity<FlightDetailsTO>) restTemplate.exchange(uri, HttpMethod.GET, entity, FlightDetailsTO.class);
 		     
 		    
-		    return result;
+		    return result.getBody();
 		     
 	  }
 
