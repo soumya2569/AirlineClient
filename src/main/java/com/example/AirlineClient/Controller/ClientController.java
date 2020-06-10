@@ -1,4 +1,4 @@
-package Controller;
+package com.example.AirlineClient.Controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import Model.FlightDetailsTO;
-import Model.FlightList;
+import com.example.Model.FlightDetailsTO;
+import com.example.Model.FlightList;
+
 
 @RestController
 
 @RequestMapping(value = "/")
 public class ClientController {
 
+	
 	public RestTemplate restTemplate;
 
 	@RequestMapping(value = "/allFlight", method = RequestMethod.GET)
